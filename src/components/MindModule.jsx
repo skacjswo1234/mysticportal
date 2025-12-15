@@ -32,13 +32,13 @@ export const MindModule = ({ onHome }) => {
             </div>
             {!loading && ans.length < 3 && (
                 <div className="text-center">
-                    <div className="text-xs text-purple-400 font-bold mb-4 tracking-widest font-eng">SCENE 0{idx+1}</div>
-                    <h2 className="text-xl font-bold mb-8 font-cute leading-relaxed text-white">{MIND_Q[idx].q}</h2>
+                    <div className="text-base text-purple-400 font-bold mb-4 tracking-widest font-eng">SCENE 0{idx+1}</div>
+                    <h2 className="text-3xl font-bold mb-8 font-cute leading-relaxed text-white">{MIND_Q[idx].q}</h2>
                     <div className="img-grid">
                         {MIND_Q[idx].ops.map((op, i) => (
                             <div key={i} onClick={()=>handleSel(op.k)} className="img-card">
-                                <div className="text-4xl mb-2">{op.i}</div>
-                                <div className="mt-2 text-sm font-bold font-cute">{op.t}</div>
+                                <div className="text-7xl mb-3">{op.i}</div>
+                                <div className="mt-2 text-lg font-bold font-cute">{op.t}</div>
                             </div>
                         ))}
                     </div>
@@ -46,17 +46,17 @@ export const MindModule = ({ onHome }) => {
             )}
             {loading && (
                 <div className="flex flex-col items-center justify-center h-80">
-                    <div className="text-4xl animate-bounce"></div>
-                    <p className="mt-4 text-purple-200 font-cute text-xl">무의식 조각을 맞추는 중...</p>
+                    <div className="loader-icon text-purple-300 text-7xl">✨</div>
+                    <p className="mt-6 text-purple-200 font-cute text-2xl">무의식 조각을 맞추는 중...</p>
                 </div>
             )}
             {!loading && res && (
                 <div className="glass-box w-full max-w-sm mx-auto fade-in">
-                    <div className="text-xs text-purple-300 font-bold mb-2">FUTURE PATTERN</div>
-                    <div className="text-6xl mb-4">{res.i}</div>
-                    <h2 className="text-2xl font-bold text-white mb-4 font-cute">{res.t}</h2>
-                    <p className="text-sm leading-6 text-gray-200">{res.m}</p>
-                    <button onClick={()=>{setIdx(0); setAns([]);}} className="mt-6 text-xs underline opacity-70">다시 하기</button>
+                    <div className="text-base text-purple-300 font-bold mb-2">FUTURE PATTERN</div>
+                    <div className="text-8xl mb-4">{res.i}</div>
+                    <h2 className="text-4xl font-bold text-white mb-4 font-cute">{res.t}</h2>
+                    <p className="text-lg leading-8 text-gray-200">{res.m}</p>
+                    <button onClick={()=>{setIdx(0); setAns([]);}} className="mt-6 text-base underline opacity-70">다시 하기</button>
                 </div>
             )}
         </div>

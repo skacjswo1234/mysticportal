@@ -81,14 +81,14 @@ export const TarotModule = ({ onHome }) => {
             </div>
             {phase === 'INPUT' && (
                 <div className="glass-box">
-                    <p className="mb-6 text-sm text-gray-100">운명의 거울에 비춰볼<br/><strong className="text-yellow-300">궁금한 질문</strong>을 떠올려보세요.</p>
+                    <p className="mb-6 text-base text-gray-100">운명의 거울에 비춰볼<br/><strong className="text-yellow-300">궁금한 질문</strong>을 떠올려보세요.</p>
                     <input className="magic-input" placeholder="예: 이번 사업은 성공할까요?" value={question} onChange={e=>setQuestion(e.target.value)}/>
                     <button disabled={!question} onClick={shuffleDeck} className="btn-action">카드를 섞다 </button>
                 </div>
             )}
             {phase === 'DRAW' && (
                 <div className="text-center pt-8">
-                    <div className="text-xs text-yellow-400 font-bold mb-8 tracking-widest font-eng">터치하여 카드를 뽑으세요</div>
+                    <div className="text-sm text-yellow-400 font-bold mb-8 tracking-widest font-eng">터치하여 카드를 뽑으세요</div>
                     <div className="tarot-spread-container">
                         <div className="spread-slots">
                             {['과거', '현재', '미래'].map((label, i) => (
@@ -96,8 +96,8 @@ export const TarotModule = ({ onHome }) => {
                                     {drawnCards[i] ? (
                                         <div className="card-inner-tarot drawn">
                                             <div className="cf-front-tarot text-white/90">
-                                                <div className="text-4xl">{drawnCards[i].icon}</div>
-                                                <div className="text-[10px] font-bold mt-1 text-yellow-300">{drawnCards[i].kr}</div>
+                                                <div className="text-5xl">{drawnCards[i].icon}</div>
+                                                <div className="text-xs font-bold mt-1 text-yellow-300">{drawnCards[i].kr}</div>
                                             </div>
                                         </div>
                                     ) : (
@@ -110,7 +110,7 @@ export const TarotModule = ({ onHome }) => {
                             ))}
                         </div>
                     </div>
-                    <div className="mt-10 text-xs text-gray-400">
+                    <div className="mt-10 text-sm text-gray-400">
                             {drawnCards.filter(c=>c).length < 3 ? `남은 카드: ${3 - drawnCards.filter(c=>c).length}장` : '운명 동기화 중...'}
                     </div>
                 </div>
@@ -118,24 +118,24 @@ export const TarotModule = ({ onHome }) => {
             {phase === 'LOADING' && (
                 <div className="flex flex-col items-center justify-center h-80">
                     <div className="loader-icon text-yellow-300"></div>
-                    <p className="mt-6 text-pink-200 font-cute text-xl">운명을 해석하는 중...</p>
+                    <p className="mt-6 text-pink-200 font-cute text-2xl">운명을 해석하는 중...</p>
                 </div>
             )}
             {phase === 'RESULT' && reading && (
                 <div className="glass-box w-full max-w-md mx-auto fade-in pb-10">
-                    <h2 className="text-xl font-bold text-yellow-300 mb-4 font-title">당신의 질문에 대한 답</h2>
-                    <p className="text-sm text-pink-200 mb-6">"{question}"</p>
+                    <h2 className="text-2xl font-bold text-yellow-300 mb-4 font-title">당신의 질문에 대한 답</h2>
+                    <p className="text-base text-pink-200 mb-6">"{question}"</p>
                     
-                    <div className="border border-white/10 p-4 rounded-lg text-left text-sm space-y-3">
+                    <div className="border border-white/10 p-4 rounded-lg text-left text-base space-y-3">
                         <p className="text-white font-bold"> **핵심 예언:** {reading.summary}</p>
-                        <p className="text-gray-400 text-xs mt-3 border-t border-white/10 pt-3">
+                        <p className="text-gray-400 text-sm mt-3 border-t border-white/10 pt-3">
                             과거(원인): <span className="text-pink-300">{reading.past.kr}</span><br/>
                             현재(전략): <span className="text-purple-300">{reading.present.kr}</span><br/>
                             미래(결과): <span className="text-yellow-300">{reading.future.kr}</span>
                         </p>
                         <details className="mt-4 pt-2 border-t border-white/10">
-                            <summary className="text-xs text-gray-400 cursor-pointer">더 깊은 해석 보기</summary>
-                            <p className="text-[11px] text-gray-300 mt-2 leading-relaxed">
+                            <summary className="text-sm text-gray-400 cursor-pointer">더 깊은 해석 보기</summary>
+                            <p className="text-xs text-gray-300 mt-2 leading-relaxed">
                                 {reading.past.msg}<br/>
                                 {reading.present.msg}<br/>
                                 {reading.future.msg}
@@ -143,7 +143,7 @@ export const TarotModule = ({ onHome }) => {
                         </details>
                     </div>
                     
-                    <button onClick={handleReset} className="mt-8 text-xs underline opacity-70">새로운 질문하기</button>
+                    <button onClick={handleReset} className="mt-8 text-base underline opacity-70">새로운 질문하기</button>
                 </div>
             )}
         </div>

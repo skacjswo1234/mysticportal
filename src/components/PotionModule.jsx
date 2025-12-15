@@ -41,7 +41,7 @@ export const PotionModule = ({ onHome }) => {
             {phase === 'SHELF' && (
                 <div className="text-center">
                     <div className="glass-box mb-6">
-                        <p className="text-sm font-light">
+                        <p className="text-base font-light">
                             마법의 솥에 넣을<br/>
                             <strong className="text-blue-300">재료 3가지</strong>를 골라주세요.
                         </p>
@@ -50,8 +50,8 @@ export const PotionModule = ({ onHome }) => {
                         {ING.map((item) => (
                             <div key={item.id} onClick={()=>togglePick(item.id)}
                                 className={`ing-item ${picks.includes(item.id) ? 'selected' : ''}`}>
-                                <div className="text-3xl mb-1">{item.i}</div>
-                                <div className="text-xs font-cute text-white">{item.n}</div>
+                                <div className="text-4xl mb-1">{item.i}</div>
+                                <div className="text-sm font-cute text-white">{item.n}</div>
                             </div>
                         ))}
                     </div>
@@ -63,17 +63,17 @@ export const PotionModule = ({ onHome }) => {
             )}
             {phase === 'MIX' && (
                 <div className="flex flex-col items-center justify-center h-80">
-                    <div className="cauldron text-4xl"></div>
-                    <p className="mt-6 text-blue-200 font-cute text-xl animate-pulse">보글보글 끓이는 중...</p>
+                    <div className="cauldron text-5xl"></div>
+                    <p className="mt-6 text-blue-200 font-cute text-2xl animate-pulse">보글보글 끓이는 중...</p>
                 </div>
             )}
             {phase === 'RESULT' && (
                 <div className="glass-box fade-in">
-                    <div className="text-xs text-blue-300 font-bold mb-2">POTION COMPLETE</div>
-                    <div className="text-7xl mb-4 animate-bounce">{getResult().i}</div>
-                    <h2 className="text-2xl font-bold text-white mb-4 font-cute">{getResult().t}</h2>
-                    <p className="text-sm leading-7 text-gray-200">{getResult().m}</p>
-                    <button onClick={()=>{setPhase('SHELF'); setPicks([]);}} className="mt-8 text-xs underline opacity-70">다시 만들기</button>
+                    <div className="text-sm text-blue-300 font-bold mb-2">POTION COMPLETE</div>
+                    <div className="text-8xl mb-4 animate-bounce">{getResult().i}</div>
+                    <h2 className="text-3xl font-bold text-white mb-4 font-cute">{getResult().t}</h2>
+                    <p className="text-base leading-8 text-gray-200">{getResult().m}</p>
+                    <button onClick={()=>{setPhase('SHELF'); setPicks([]);}} className="mt-8 text-base underline opacity-70">다시 만들기</button>
                 </div>
             )}
         </div>
