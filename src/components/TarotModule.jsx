@@ -26,10 +26,17 @@ export const TarotModule = ({ onHome }) => {
     };
 
     const handleDraw = (slotIndex) => {
-        if (drawnCards[slotIndex] || drawnCards.filter(c => c).length >= 3) return;
+        // 이미 해당 슬롯에 카드가 있으면 무시
+        if (drawnCards[slotIndex]) return;
+        
+        // 이미 3장을 뽑았으면 무시
+        const drawnCount = drawnCards.filter(c => c !== null).length;
+        if (drawnCount >= 3) return;
+        
         // Pick the card based on the current draw count from the shuffled deck
-        const drawCount = drawnCards.filter(c => c).length;
-        const card = deck[drawCount]; // Pick the next unique card
+        const card = deck[drawnCount]; // Pick the next unique card
+        
+        if (!card) return; // 덱에 카드가 없으면 무시
         
         AudioEngine.playClick();
         
@@ -37,13 +44,15 @@ export const TarotModule = ({ onHome }) => {
         const newDrawn = [...drawnCards];
         newDrawn[slotIndex] = card; 
         setDrawnCards(newDrawn);
+        
         // Check if final card drawn
-        if (newDrawn.filter(c => c).length === 3) {
+        const newDrawnCount = newDrawn.filter(c => c !== null).length;
+        if (newDrawnCount === 3) {
             // Wait for the third card to visually flip (800ms) before starting loading
             setTimeout(() => {
                 setPhase('LOADING');
-                
-                setTimeout(() => interpretReading(newDrawn), 1700); // 1700ms Analysis time
+                const validCards = newDrawn.filter(c => c !== null);
+                setTimeout(() => interpretReading(validCards), 1700); // 1700ms Analysis time
             }, 800); 
         }
     };
@@ -73,7 +82,7 @@ export const TarotModule = ({ onHome }) => {
     };
 
     return (
-        <div className="w-full h-full flex flex-col p-6 fade-in overflow-y-auto">
+        <div className="w-full h-full flex flex-col p-1 fade-in overflow-y-auto" style={{maxWidth: '100%', overflowX: 'hidden'}}>
             <div className="flex justify-between items-center mb-6">
                 <button onClick={onHome} className="text-white/70 hover:text-white"><IconArrowLeft/></button>
                 <span className="text-yellow-300 font-bold font-cute text-xl">타로 운명의 거울</span>
@@ -87,25 +96,28 @@ export const TarotModule = ({ onHome }) => {
                 </div>
             )}
             {phase === 'DRAW' && (
-                <div className="text-center pt-8">
+                <div className="text-center pt-8 w-full" style={{overflowX: 'hidden', maxWidth: '100%', padding: '0 2px'}}>
                     <div className="text-sm text-yellow-400 font-bold mb-8 tracking-widest font-eng">터치하여 카드를 뽑으세요</div>
-                    <div className="tarot-spread-container">
-                        <div className="spread-slots">
+                    <div className="tarot-spread-container w-full" style={{overflowX: 'hidden', width: '100%'}}>
+                        <div className="spread-slots w-full" style={{overflowX: 'hidden', width: '100%'}}>
                             {['과거', '현재', '미래'].map((label, i) => (
-                                <div key={i} className={`slot ${drawnCards[i] ? 'drawn' : ''}`} onClick={() => handleDraw(i)}>
+                                <div key={i} className="slot-wrapper">
+                                    <div className={`slot ${drawnCards[i] ? 'drawn' : ''}`} onClick={() => handleDraw(i)}>
                                     {drawnCards[i] ? (
                                         <div className="card-inner-tarot drawn">
+                                            <div className="cf-back-tarot"></div>
                                             <div className="cf-front-tarot text-white/90">
-                                                <div className="text-5xl">{drawnCards[i].icon}</div>
-                                                <div className="text-xs font-bold mt-1 text-yellow-300">{drawnCards[i].kr}</div>
+                                                <div className="text-8xl">{drawnCards[i].icon}</div>
+                                                <div className="text-xl font-bold mt-3 text-yellow-300">{drawnCards[i].kr}</div>
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="card-inner-tarot">
-                                            <div className="cf-back-tarot"></div>
-                                        </div>
-                                    )}
-                                    <div className="slot-label mt-2">{label}</div>
+                                            <div className="card-inner-tarot">
+                                                <div className="cf-back-tarot"></div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="slot-label">{label}</div>
                                 </div>
                             ))}
                         </div>
